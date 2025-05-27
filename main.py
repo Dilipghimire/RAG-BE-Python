@@ -3,7 +3,6 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from fastapi.middleware.cors import CORSMiddleware
-from mangum import Mangum
 
 
 
@@ -28,4 +27,6 @@ app.include_router(transcript.router)
 app.include_router(login.router)
 
 
-handler = Mangum(app)
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
