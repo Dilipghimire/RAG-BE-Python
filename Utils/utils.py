@@ -4,7 +4,7 @@ from langchain_community.vectorstores import FAISS
 import os
 from langchain_core.prompts import PromptTemplate
 
-from app.services.youtube_transcript_service import fetch_transcript
+from services.youtube_transcript_service import fetch_transcript
 
 def get_transcript_internal(video_id: str):
     transcript = fetch_transcript(video_id)

@@ -5,8 +5,8 @@ from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from fastapi.middleware.cors import CORSMiddleware
 
 
-from app.api import  transcript
-from app.api.login import login 
+from api import  transcript
+from api.login import login 
 
 
 
