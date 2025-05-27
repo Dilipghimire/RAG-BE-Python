@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+psycopg2-binary
+python-dotenv
+passlib[bcrypt]
+youtube-transcript-api
+langchain
+langchain-openai
+langchain-community
+openai
