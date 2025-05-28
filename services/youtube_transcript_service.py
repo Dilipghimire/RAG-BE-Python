@@ -1,6 +1,8 @@
 import os
+from dotenv import load_dotenv
 from youtube_transcript_api import YouTubeTranscriptApi, TranscriptsDisabled
 
+load_dotenv()
 
 def fetch_transcript (video_id: str) -> str:
     proxies = {
