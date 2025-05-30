@@ -2,7 +2,7 @@
 from fastapi import APIRouter, HTTPException
 from youtube_transcript_api import  TranscriptsDisabled
 from Utils.utils import get_transcript_internal, retrieveContent
-from services.youtube_transcript_service import fetch_transcript
+from services.youtube_transcript_service import  fetch_transcript
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_community.vectorstores import FAISS
@@ -10,6 +10,7 @@ import os
 from langchain_core.prompts import PromptTemplate
 from pydantic import BaseModel
 from dotenv import load_dotenv
+from api.data.demoTranscript import demoTranscript
 
 
 
@@ -27,7 +28,11 @@ class QuestionRequest(BaseModel):
 @router.get("/transcript/{video_id}")
 async def get_transcript(video_id: str):
     try:
-        return get_transcript_internal(video_id)
+        for entry in demoTranscript:
+            if video_id in entry:
+                return entry[video_id]
+        # comment out for now because of IP restriction from youtube api
+        # return fetch_transcript(video_id)
     
     except TranscriptsDisabled:
         raise HTTPException(status_code=404, detail="Captions are disabled for this video")
