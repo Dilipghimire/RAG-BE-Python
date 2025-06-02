@@ -1,7 +1,7 @@
 
 from fastapi import APIRouter, HTTPException
 from youtube_transcript_api import  TranscriptsDisabled
-from Utils.utils import get_transcript_internal, retrieveContent
+from Utils.utils import get_transcript_internal, getTranscriptContent
 from services.youtube_transcript_service import  fetch_transcript
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
@@ -22,7 +22,7 @@ os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
 class QuestionRequest(BaseModel):
     askQuestion: str
-    videoTranscript: str
+    # videoTranscript: str
     
 
 @router.get("/transcript/{video_id}")
@@ -45,7 +45,7 @@ async def get_transcript(video_id: str):
 @router.post("/aks-question")
 async def ask_questions(request:QuestionRequest):
     try:
-        return retrieveContent(request.askQuestion, request.videoTranscript)
+        return getTranscriptContent(request.askQuestion)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     

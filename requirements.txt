@@ -11,4 +11,6 @@ langchain-community
 openai
 mangum
 faiss-cpu
+langchain_pinecone
+pinecone
 
