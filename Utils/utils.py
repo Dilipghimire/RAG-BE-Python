@@ -41,8 +41,6 @@ def getTranscriptContent(askQuestion):
     llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.4)
     results = search_vector_store(askQuestion, 'transcript-demo') 
     context_text = "\n\n".join(doc.page_content for doc in results)
-    print('context_text', context_text)
-    print ('askQuestion', askQuestion)
     final_prompt = prompt().invoke({'context': context_text, 'question': askQuestion})
     answer = llm.invoke(final_prompt)
     return answer.content
