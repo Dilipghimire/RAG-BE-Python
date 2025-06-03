@@ -37,6 +37,9 @@ def verify_password(plain_password, hashed_password):
 def hash_password(password: str) -> str:
     return pwd_context.hash(password)
 
+def is_duplicate_user(username: str, db: Session):
+    return db.query(models.User).filter(models.User.username == username).first() is not None
+
 @router.post("/login")
 def login(user: UserLogin, db: Session = Depends(get_db)):
     db_user = get_user_by_username(db, user.username)
@@ -51,12 +54,15 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
 @router.post("/register")
 def register(createUser: CreateUser, db: Session = Depends(get_db)):
     hashed_pw = hash_password(createUser.password)
+    if is_duplicate_user(createUser.username, db):
+        raise HTTPException(status_code=400, detail="User already exists")    
+    
     db_user = models.User (
         username = createUser.username,
         email = createUser.email ,
         hashed_password = hashed_pw
     )
-    
+        
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
