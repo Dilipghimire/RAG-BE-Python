@@ -8,6 +8,7 @@ This is the **backend** for a full-stack web application built with **FastAPI**.
 - 📦 **Vector storage** with Pinecone
 - 🔍 **Semantic search**
 - 🤖 **LLM responses** using OpenAI’s GPT models
+- PostgreSQL for login and registeration
 
 ---
 
